@@ -4302,7 +4302,7 @@ void Aura::HandleSchoolAbsorb(bool apply, bool Real)
                     break;
                 case SPELLFAMILY_WARLOCK:
                     // Shadow Ward
-                    if (spellProto->SpellFamilyFlags == UI64LIT(0x00))
+                    if (!spellProto->SpellFamilyFlags)
                         //+10% from +spell bonus
                         { DoneActualBenefit = caster->SpellBaseDamageBonusDone(GetSpellSchoolMask(spellProto)) * 0.1f; }
                     break;
@@ -5348,6 +5348,22 @@ void SpellAuraHolder::HandleSpellSpecificBoosts(bool apply)
 
     switch (GetSpellProto()->SpellFamilyName)
     {
+        case SPELLFAMILY_GENERIC:
+        {
+            switch (GetId())
+            {
+                case 20594:                                 // Stoneform (dwarven racial)
+                {
+                    spellId1 = 20612;
+                    break;
+                }
+                default:
+                {
+                    return;
+                }
+            }
+            break;
+        }
         case SPELLFAMILY_MAGE:
         {
             switch (GetId())

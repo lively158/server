@@ -236,8 +236,6 @@ bool ChatHandler::HandleTriggerCommand(char* args)
 
         float dist2 = MAP_SIZE * MAP_SIZE;
 
-        Player* pl = m_session->GetPlayer();
-
         // Search triggers
         for (uint32 id = 0; id < sAreaTriggerStore.GetNumRows(); ++id)
         {
@@ -1496,8 +1494,6 @@ bool ChatHandler::HandleNpcAddCommand(char* args)
     // To call _LoadGoods(); _LoadQuests(); CreateTrainerSpells();
     pCreature->LoadFromDB(db_guid, map);
 
-    map->Add(pCreature);
-    sObjectMgr.AddCreatureToGrid(db_guid, sObjectMgr.GetCreatureData(db_guid));
     return true;
 }
 
@@ -4181,11 +4177,11 @@ void ChatHandler::HandleLearnSkillRecipesHelper(Player* player, uint32 skill_id)
 
 bool ChatHandler::HandleLearnAllCraftsCommand(char* /*args*/)
 {
-	for (uint32 i = 0; i < sSkillLineStore.GetNumRows(); ++i)
-	{
-		SkillLineEntry const* skillInfo = sSkillLineStore.LookupEntry(i);
-		if (!skillInfo)
-		{ continue; }
+    for (uint32 i = 0; i < sSkillLineStore.GetNumRows(); ++i)
+    {
+        SkillLineEntry const* skillInfo = sSkillLineStore.LookupEntry(i);
+        if (!skillInfo)
+        { continue; }
 
 		if (skillInfo->categoryId == SKILL_CATEGORY_PROFESSION || skillInfo->categoryId == SKILL_CATEGORY_SECONDARY)
 		{
@@ -4202,8 +4198,8 @@ bool ChatHandler::HandleLearnAllCraftsCommand(char* /*args*/)
 		}
 	}
 
-	SendSysMessage(LANG_COMMAND_LEARN_ALL_CRAFT);
-	return true;
+    SendSysMessage(LANG_COMMAND_LEARN_ALL_CRAFT);
+    return true;
 }
 
 bool ChatHandler::HandleLearnAllRecipesCommand(char* args)
